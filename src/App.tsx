@@ -142,7 +142,7 @@ const Hero = () => {
           </h1>
           
           <p className="text-lg md:text-xl text-stone-300 max-w-xl mb-12 leading-relaxed font-light border-l-[3px] border-red-600 pl-6">
-            Experience the 90-year legacy of Karnataka style non-vegetarian cuisine. Famous for our Seeraga Samba rice Mutton Donne Biryani, fiery chops, and hearty Paya soup.
+            Experience the 100-year legacy of Karnataka style non-vegetarian cuisine. Famous for our Seeraga Samba rice Mutton Donne Biryani, fiery chops, and hearty Paya soup.
           </p>
 
           <div className="flex flex-col sm:flex-row items-center gap-4">
@@ -184,7 +184,7 @@ const About = () => {
           >
             <span className="text-red-600 font-bold tracking-widest uppercase text-xs mb-3 block">Est. 1924</span>
             <h2 className="text-5xl md:text-6xl font-heritage text-stone-900 mb-8 leading-tight font-extrabold">
-              A 90-Year Old <br /> <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-800 to-red-500 italic">Meat Lover's Mecca.</span>
+              A 100-Year Old <br /> <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-800 to-red-500 italic">Meat Lover's Mecca.</span>
             </h2>
             <p className="text-stone-600 text-lg leading-relaxed mb-10">
               Shivaji Military Hotel is an emotion for true Bangaloreans. Originally feeding hardworking patrons with hearty, high-protein meals, it remains a bustling, no-frills destination where the focus is entirely on the uncompromising quality and rustic spices of Karnataka-style cooking.
@@ -286,6 +286,14 @@ const MenuSection = () => {
       price: '₹40', 
       tag: 'Best with Chops',
       img: 'https://images.unsplash.com/photo-1668236543090-82eba5ee5976?q=80&w=800&auto=format&fit=crop',
+      span: 'md:col-span-1 md:row-span-1'
+    },
+    { 
+      title: 'Natty Chicken Biryani', 
+      price: '₹185', 
+      tag: 'Thursday Special',
+      desc: 'Authentic country chicken biryani, available exclusively on Thursdays.',
+      img: 'https://images.unsplash.com/photo-1589302168068-964664d93dc0?q=80&w=800&auto=format&fit=crop',
       span: 'md:col-span-1 md:row-span-1'
     }
   ];

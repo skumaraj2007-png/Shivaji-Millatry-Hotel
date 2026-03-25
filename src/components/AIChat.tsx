@@ -1,7 +1,155 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { GoogleGenAI } from "@google/genai";
 import { Send, X, Sparkles, Flame, MessageSquare } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
+
+const RESTAURANT_DATA = {
+  "restaurant": {
+    "name": "Shivaji Military Hotel",
+    "brand_alias": [
+      "Shivaji Military Hotel Since 1935",
+      "SMH Bangalore"
+    ],
+    "type": "Restaurant",
+    "category": [
+      "Biryani Restaurant",
+      "South Indian Restaurant",
+      "Non-Veg Restaurant"
+    ],
+    "established_year": 1924,
+    "years_in_business": "90+",
+    "description": "One of the oldest and most iconic military hotels in Bangalore, famous for authentic Donne Biryani and traditional non-vegetarian Karnataka cuisine.",
+    "location": {
+      "address": "No.718, 1st C Main Road, 45th Cross, Jayanagar 8th Block",
+      "landmark": "Near Banashankari Bus Stop",
+      "city": "Bangalore",
+      "state": "Karnataka",
+      "country": "India",
+      "pincode": "560070"
+    },
+    "contact": {
+      "phone": "+91-9845149217",
+      "whatsapp_available": true,
+      "online_ordering": ["Zomato", "Swiggy"]
+    },
+    "timings": {
+      "monday": "08:30 AM - 03:30 PM",
+      "tuesday": "08:30 AM - 03:30 PM",
+      "wednesday": "08:30 AM - 03:30 PM",
+      "thursday": "08:30 AM - 03:30 PM",
+      "friday": "08:30 AM - 03:30 PM",
+      "saturday": "08:30 AM - 03:30 PM",
+      "sunday": "08:30 AM - 03:30 PM"
+    },
+    "pricing": {
+      "average_cost_for_two": 500,
+      "currency": "INR",
+      "budget_category": "Affordable"
+    },
+    "menu": {
+      "breakfast": [{ "name": "Dosa", "price": 40, "type": "veg" }],
+      "main_course": [
+        { "name": "Mutton Biryani (Donne)", "price": 185, "type": "non-veg", "popular": true },
+        { "name": "Chicken Biryani", "price": 160, "type": "non-veg" },
+        { "name": "Ghee Rice", "price": 90, "type": "veg" },
+        { "name": "Mutton Chops", "price": 160, "type": "non-veg" },
+        { "name": "Mutton Dry", "price": 160, "type": "non-veg", "recommended": true },
+        { "name": "Mutton Liver", "price": 130, "type": "non-veg" },
+        { "name": "Kheema", "price": 160, "type": "non-veg" }
+      ],
+      "soups": [{ "name": "Leg Soup", "price": 140, "type": "non-veg" }],
+      "special_items": [{ "name": "Natty Chicken Biryani", "price": 185, "availability": "Thursday only" }]
+    },
+    "cuisine": ["South Indian", "Karnataka Cuisine", "Donne Biryani", "Non-Vegetarian"],
+    "features": {
+      "dine_in": true,
+      "takeaway": true,
+      "delivery": true,
+      "family_friendly": false,
+      "parking": "Limited",
+      "seating": "Compact",
+      "air_conditioning": false
+    },
+    "ratings": {
+      "justdial": { "rating": 4.2, "reviews": 29000 },
+      "zomato": { "dining_rating": 4.0, "delivery_rating": 4.1, "reviews": 6000 }
+    },
+    "popular_dishes": ["Donne Mutton Biryani", "Chicken Biryani", "Mutton Dry", "Leg Soup", "Kheema"],
+    "speciality": {
+      "signature_style": "Served in banana leaf bowls (Donne)",
+      "taste_profile": "Spicy, ghee-rich, authentic Karnataka flavor"
+    },
+    "customer_insights": {
+      "pros": ["Authentic taste", "Affordable pricing", "Fast moving crowd (high demand)", "Iconic heritage restaurant"],
+      "cons": ["Crowded", "Limited seating", "Parking issues", "Short operating hours"]
+    },
+    "history": {
+      "origin": "Military hotels were originally run by families linked to army communities",
+      "legacy": "Shivaji Military Hotel is one of the oldest military hotels in Bangalore"
+    },
+    "chatbot_ready_faq": [
+      { "question": "What is Shivaji Military Hotel famous for?", "answer": "It is famous for Donne Mutton Biryani and authentic Karnataka non-veg dishes." },
+      { "question": "What are the timings?", "answer": "The restaurant is open daily from 8:30 AM to 3:30 PM." },
+      { "question": "Is veg food available?", "answer": "Limited veg options like dosa and ghee rice are available, but it is mainly a non-veg restaurant." },
+      { "question": "What is the average cost?", "answer": "Around ₹500 for two people." }
+    ]
+  }
+};
+
+function getManualResponse(query: string): string {
+  const q = query.toLowerCase();
+  const data = RESTAURANT_DATA.restaurant;
+  
+  // FAQ matching
+  for (const faq of data.chatbot_ready_faq) {
+    if (q.includes(faq.question.toLowerCase().replace('?', ''))) {
+      return faq.answer;
+    }
+  }
+
+  if (q.includes('timing') || q.includes('time') || q.includes('open') || q.includes('close')) {
+    return `Namaskara! We are open daily from ${data.timings.monday}. We serve heritage flavors all week!`;
+  }
+  
+  if (q.includes('menu') || q.includes('food') || q.includes('eat') || q.includes('dish') || q.includes('popular')) {
+    const popular = data.popular_dishes.join(', ');
+    return `Our legendary dishes include: ${popular}. Our signature style is ${data.speciality.signature_style}.`;
+  }
+  
+  if (q.includes('biryani') || q.includes('donne')) {
+    const mutton = data.menu.main_course.find(i => i.name.includes('Mutton'))?.price;
+    return `Our Mutton Biryani (Donne) is ₹${mutton} and is our most popular dish! We also have Chicken Biryani for ₹160.`;
+  }
+  
+  if (q.includes('location') || q.includes('where') || q.includes('address') || q.includes('place') || q.includes('landmark')) {
+    return `You can find us at ${data.location.address}, ${data.location.landmark}, ${data.location.city}.`;
+  }
+  
+  if (q.includes('veg')) {
+    return `While we are famous for non-veg, we do have limited veg options like ${data.menu.breakfast[0].name} (₹${data.menu.breakfast[0].price}) and Ghee Rice (₹90).`;
+  }
+  
+  if (q.includes('price') || q.includes('cost') || q.includes('cheap') || q.includes('expensive')) {
+    return `The average cost for two is around ₹${data.pricing.average_cost_for_two} ${data.pricing.currency}. It's considered ${data.pricing.budget_category}!`;
+  }
+  
+  if (q.includes('history') || q.includes('old') || q.includes('start') || q.includes('year') || q.includes('legacy')) {
+    return `Shivaji Military Hotel was established in ${data.established_year}. ${data.history.legacy}. ${data.history.origin}.`;
+  }
+
+  if (q.includes('rating') || q.includes('review') || q.includes('zomato') || q.includes('justdial')) {
+    return `We have a ${data.ratings.zomato.dining_rating} rating on Zomato and ${data.ratings.justdial.rating} on Justdial with over ${data.ratings.justdial.reviews} reviews!`;
+  }
+  
+  if (q.includes('parking') || q.includes('seat') || q.includes('crowd')) {
+    return `Please note: Parking is ${data.features.parking} and seating is ${data.features.seating}. It can get ${data.customer_insights.cons[0].toLowerCase()}!`;
+  }
+
+  if (q.includes('contact') || q.includes('phone') || q.includes('call') || q.includes('whatsapp')) {
+    return `You can reach us at ${data.contact.phone}. WhatsApp is ${data.contact.whatsapp_available ? 'available' : 'not available'}. We are also on ${data.contact.online_ordering.join(' and ')}.`;
+  }
+
+  return "Namaskara! I'm not quite sure about that. You can ask me about our menu, timings, location, or our 90+ year legacy!";
+}
 
 interface Message {
   role: 'user' | 'ai';
@@ -34,75 +182,12 @@ export default function AIChat() {
     setQuery('');
     setIsTyping(true);
 
-    try {
-      const apiKey = process.env.GEMINI_API_KEY;
-      if (!apiKey) {
-        setMessages(prev => [...prev, { role: 'ai', text: "Namaskara! It seems my connection to the spice vault is missing a key. Please ensure the Gemini API key is configured in the environment!" }]);
-        setIsTyping(false);
-        return;
-      }
-
-      const ai = new GoogleGenAI({ apiKey });
-      const response = await ai.models.generateContent({
-        model: "gemini-3-flash-preview",
-        contents: [
-          {
-            role: "user",
-            parts: [{ text: `You are the digital guide for Shivaji Military Hotel in Bengaluru. 
-            
-            Official Restaurant Data:
-            {
-              "name": "Shivaji Military Hotel",
-              "established_year": 1924,
-              "description": "One of the oldest and most iconic military hotels in Bangalore, famous for authentic Donne Biryani and traditional non-vegetarian Karnataka cuisine.",
-              "location": {
-                "address": "No.718, 1st C Main Road, 45th Cross, Jayanagar 8th Block",
-                "landmark": "Near Banashankari Bus Stop",
-                "city": "Bangalore",
-                "pincode": "560070"
-              },
-              "contact": { "phone": "+91-9845149217", "online_ordering": ["Zomato", "Swiggy"] },
-              "timings": "Daily 08:30 AM - 03:30 PM",
-              "pricing": { "average_cost_for_two": 500 },
-              "menu_highlights": {
-                "breakfast": ["Dosa (₹40)"],
-                "main_course": [
-                  "Mutton Biryani (Donne) (₹185) - Popular",
-                  "Chicken Biryani (₹160)",
-                  "Ghee Rice (₹90)",
-                  "Mutton Chops (₹160)",
-                  "Mutton Dry (₹160) - Recommended",
-                  "Mutton Liver (₹130)",
-                  "Kheema (₹160)"
-                ],
-                "soups": ["Leg Soup (₹140)"],
-                "specials": ["Natty Chicken Biryani (₹185) - Thursday only"]
-              },
-              "features": { "parking": "Limited", "seating": "Compact", "air_conditioning": false },
-              "speciality": "Served in banana leaf bowls (Donne), Spicy, ghee-rich, authentic Karnataka flavor",
-              "history": "Military hotels were originally run by families linked to army communities. Shivaji Military Hotel is one of the oldest in Bangalore.",
-              "faq": [
-                { "q": "What are the timings?", "a": "Daily 8:30 AM to 3:30 PM." },
-                { "q": "Is veg food available?", "a": "Limited veg options like dosa and ghee rice are available." }
-              ]
-            }
-
-            User Question: ${userText}` }]
-          }
-        ],
-        config: {
-          systemInstruction: "You are a helpful, friendly, and knowledgeable digital assistant for Shivaji Military Hotel. Use the provided official data to answer questions accurately. Keep responses concise, heritage-focused, and use a bit of local flavor (like 'Namaskara'). If asked about something not in the data, politely say you don't have that information yet."
-        }
-      });
-
-      const aiText = response.text || "I'm sorry, I couldn't process that. Please try asking about our menu or timings!";
+    // Simulate a small delay for "typing" effect
+    setTimeout(() => {
+      const aiText = getManualResponse(userText);
       setMessages(prev => [...prev, { role: 'ai', text: aiText }]);
-    } catch (error) {
-      console.error("AI Error:", error);
-      setMessages(prev => [...prev, { role: 'ai', text: "I'm having a bit of trouble connecting right now. Please try again later!" }]);
-    } finally {
       setIsTyping(false);
-    }
+    }, 600);
   };
 
   const quickPrompts = [
