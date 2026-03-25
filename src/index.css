@@ -35,6 +35,15 @@
     -ms-overflow-style: none;
     scrollbar-width: none;
   }
+  
+  .animate-spin-slow {
+    animation: spin-slow 12s linear infinite;
+  }
+}
+
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
 }
 
 @keyframes pulseBg {

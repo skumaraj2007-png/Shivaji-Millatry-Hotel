@@ -133,7 +133,7 @@ const Hero = () => {
         >
           <div className="inline-flex items-center gap-2 px-5 py-2.5 bg-stone-800/80 backdrop-blur-md border border-stone-600 rounded-full text-stone-200 text-xs font-bold mb-8 tracking-widest uppercase shadow-xl">
             <Award className="text-orange-500" size={16} />
-            <span>Bengaluru's Culinary Heritage Since 1935</span>
+            <span>Bengaluru's Culinary Heritage Since 1924</span>
           </div>
           
           <h1 className="text-6xl md:text-8xl lg:text-9xl font-heritage font-extrabold mb-6 leading-[0.95] tracking-tighter text-white">
@@ -182,7 +182,7 @@ const About = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
           >
-            <span className="text-red-600 font-bold tracking-widest uppercase text-xs mb-3 block">Est. 1935</span>
+            <span className="text-red-600 font-bold tracking-widest uppercase text-xs mb-3 block">Est. 1924</span>
             <h2 className="text-5xl md:text-6xl font-heritage text-stone-900 mb-8 leading-tight font-extrabold">
               A 90-Year Old <br /> <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-800 to-red-500 italic">Meat Lover's Mecca.</span>
             </h2>
@@ -240,7 +240,7 @@ const MenuSection = () => {
   const menuItems = [
     { 
       title: 'Mutton Donne Biryani', 
-      price: '₹285', 
+      price: '₹185', 
       desc: 'Tender mutton pieces cooked with Seeraga Samba rice, rich spices, and served hot in traditional leaf donnes.',
       tag: 'The Legend',
       img: 'https://images.unsplash.com/photo-1633945274405-b6c8069047b0?q=80&w=1500&auto=format&fit=crop',
@@ -248,42 +248,42 @@ const MenuSection = () => {
     },
     { 
       title: 'Leg Soup (Paya)', 
-      price: '₹145', 
+      price: '₹140', 
       tag: 'Breakfast Special',
       img: 'https://images.unsplash.com/photo-1547592180-85f173990554?q=80&w=800&auto=format&fit=crop',
       span: 'md:col-span-1 md:row-span-1'
     },
     { 
       title: 'Mutton Liver Fry', 
-      price: '₹160', 
+      price: '₹130', 
       tag: 'Rich & Peppery',
       img: 'https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?q=80&w=800&auto=format&fit=crop',
       span: 'md:col-span-1 md:row-span-1'
     },
     { 
-      title: 'Chicken Kebab', 
-      price: '₹300', 
-      tag: 'Crispy Fried',
+      title: 'Chicken Biryani', 
+      price: '₹160', 
+      tag: 'Classic Choice',
       img: 'https://images.unsplash.com/photo-1562565652-a8e87d312948?q=80&w=800&auto=format&fit=crop',
       span: 'md:col-span-1 md:row-span-1'
     },
     { 
       title: 'Mutton Chops & Dry', 
-      price: '₹160+', 
+      price: '₹160', 
       desc: 'Tender cuts of meat slow-cooked in a fiery dark masala.',
       img: 'https://images.unsplash.com/photo-1544025162-d76694265947?q=80&w=800&auto=format&fit=crop',
       span: 'md:col-span-1 md:row-span-2'
     },
     { 
-      title: 'Chicken Donne Biryani', 
-      price: '₹185', 
-      desc: 'For those who prefer poultry over red meat.',
+      title: 'Kheema Fry', 
+      price: '₹160', 
+      desc: 'Minced meat cooked with authentic spices.',
       img: 'https://images.unsplash.com/photo-1631515243349-e0cb75fb8d3a?q=80&w=1500&auto=format&fit=crop',
       span: 'md:col-span-2 md:row-span-1'
     },
     { 
       title: 'Dosa (2 pcs)', 
-      price: '₹45', 
+      price: '₹40', 
       tag: 'Best with Chops',
       img: 'https://images.unsplash.com/photo-1668236543090-82eba5ee5976?q=80&w=800&auto=format&fit=crop',
       span: 'md:col-span-1 md:row-span-1'
@@ -410,7 +410,7 @@ const Essentials = () => {
     { icon: Clock4, title: 'Arrive Early', desc: 'We open at 8:30 AM. To avoid the massive lunch rush and ensure the mutton biryani isn\'t sold out, aim to arrive before 12:00 PM.' },
     { icon: Car, title: 'Parking is Tight', desc: 'Street parking in Jayanagar 8th block can be extremely difficult. We highly recommend using public transport or a two-wheeler.' },
     { icon: Users, title: 'The Vibe', desc: 'We are a traditional Military Hotel. Expect a rustic, fast-paced, and no-frills environment. You may have to share tables or wait in a token queue.' },
-    { icon: CalendarX, title: 'Monday Closed', desc: 'Please note that we are completely closed on Mondays. Plan your visits from Tuesday through Sunday.' }
+    { icon: CalendarX, title: 'Open Daily', desc: 'We are now open all 7 days of the week, from 8:30 AM to 3:30 PM. Join us any day for your biryani fix!' }
   ];
 
   return (
@@ -494,12 +494,12 @@ const Footer = () => {
           <h3 className="text-white font-heritage font-bold text-3xl mb-8">Operating Hours</h3>
           <div className="bg-stone-900/50 p-8 rounded-2xl border border-stone-800 shadow-xl backdrop-blur-sm">
             <div className="flex justify-between items-center mb-5 border-b border-stone-800 pb-5">
-              <span className="font-bold text-white text-lg">Tue - Sun</span>
+              <span className="font-bold text-white text-lg">Mon - Sun</span>
               <span className="text-orange-400 tracking-wide font-bold">8:30 AM – 3:30 PM</span>
             </div>
             <div className="flex justify-between items-center mb-6">
-              <span className="font-bold text-stone-500 text-lg">Monday</span>
-              <span className="bg-red-900/30 border border-red-800 text-red-400 px-3 py-1 rounded text-xs font-bold uppercase tracking-widest">Closed</span>
+              <span className="font-bold text-stone-200 text-lg">Open Daily</span>
+              <span className="bg-green-900/30 border border-green-800 text-green-400 px-3 py-1 rounded text-xs font-bold uppercase tracking-widest">Available</span>
             </div>
             <p className="text-xs text-stone-500 mb-6 font-light">*Closing time depends on stock. Arrive early!</p>
             <div className="flex gap-3 flex-wrap">
