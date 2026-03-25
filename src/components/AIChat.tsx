@@ -3,8 +3,6 @@ import { GoogleGenAI } from "@google/genai";
 import { Send, X, Sparkles, Flame, MessageSquare } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 
-const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY || '' });
-
 interface Message {
   role: 'user' | 'ai';
   text: string;
@@ -37,6 +35,14 @@ export default function AIChat() {
     setIsTyping(true);
 
     try {
+      const apiKey = process.env.GEMINI_API_KEY;
+      if (!apiKey) {
+        setMessages(prev => [...prev, { role: 'ai', text: "Namaskara! It seems my connection to the spice vault is missing a key. Please ensure the Gemini API key is configured in the environment!" }]);
+        setIsTyping(false);
+        return;
+      }
+
+      const ai = new GoogleGenAI({ apiKey });
       const response = await ai.models.generateContent({
         model: "gemini-3-flash-preview",
         contents: [
